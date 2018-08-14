@@ -1,0 +1,94 @@
+package com.eqy.web.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.eqy.web.pojo.PackBean;
+import com.eqy.web.pojo.UserInfoBean;
+import com.eqy.web.service.IPackService;
+
+/**
+ * 
+ * @ClassName: LoginController
+ * @Description: TODO(这里用一句话描述这个类的作用)
+ * @author:  戴光浩
+ * @date: 2018-6-26 上午11:36:12
+ */
+@Controller
+@RequestMapping(value = "/pack")
+public class PackInfoController {
+	
+	
+	protected static final Logger logger = Logger.getLogger(PackInfoController.class);
+	@Autowired
+    private IPackService packService;
+    /**
+     * 方法描述: 
+     * 
+     * @param request
+     * @return
+     * @see
+     */
+    @RequestMapping(value="/detail")
+    public String index(HttpServletRequest request,HttpServletResponse response ,Model model,
+                                                                        @RequestParam(required = false) String id)
+    {
+    	System.out.println("------------:"+id);
+    	try{
+            if(id == null ){
+               logger.error("id信息不能为空");
+            }
+            PackBean pack= packService.selectDetailPackById(id);
+            if(pack == null){
+            	logger.debug("获取停车场信息失败");
+            }
+            model.addAttribute("pack",pack);
+            return "choose";
+        }catch(Exception e){
+            logger.error("服务器出现异常！",e);
+            return "error";
+        }
+    }
+    
+    /**
+     * 方法描述: 准备进入预约表单页面
+     * 
+     * @param request
+     * @return
+     * @see
+     */
+    @RequestMapping(value="/tobooking")
+    public String index(HttpServletRequest request,HttpServletResponse response ,Model model,
+                                                                        @RequestParam(required = false) String id,@RequestParam(required = false) String flag)
+    {
+    	System.out.println("停车场ID:"+id);
+    	System.out.println("车位标识符:"+flag);
+    	try{
+            if(id == null || flag == null){
+               logger.error("id或者flag信息不能为空");
+            }
+            String openid = (String) request.getSession().getAttribute("OPENID");
+            if(openid == null ){
+                logger.error("没有获取到用户信息");
+             }
+            //获取用户当前等级的车辆信息
+            List<UserInfoBean> userInfoList = packService.selectUserCarList(openid);
+            System.out.println(userInfoList.size());
+            model.addAttribute("userinfolist",userInfoList);
+            
+            return "appointmsg";
+        }catch(Exception e){
+            logger.error("服务器出现异常！",e);
+            return "error";
+        }
+    }
+}

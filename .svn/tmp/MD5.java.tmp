@@ -1,0 +1,70 @@
+package com.eqy.utils;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+/**
+ * 盛康 MD5加密类
+ * 
+ * @author dengcj
+ * 
+ */
+public class MD5
+{
+
+    public  static String Md5(String plainText)
+    {
+        String result = null;
+        try
+        {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+<<<<<<< .mine
+            md.update(plainText.getBytes("utf-8"));
+            byte b[] = md.digest(plainText.getBytes());
+=======
+            //md.update(plainText.getBytes());
+            byte b[] = md.digest(plainText.getBytes("UTF-8"));//转成ut8编码来 加密
+>>>>>>> .r636
+            int i;
+            StringBuffer buf = new StringBuffer("");
+            for (int offset = 0; offset < b.length; offset++)
+            {
+                i = b[offset];
+                if (i < 0)
+                    i += 256;
+                if (i < 16)
+                    buf.append("0");
+                buf.append(Integer.toHexString(i));
+            }
+            result = buf.toString();
+            // result = buf.toString().substring(8, 24);
+            // System.out.println("mdt 16bit: " + buf.toString().substring(8,
+            // 24));
+//             System.out.println("md5 32bit: " + buf.toString());
+        }
+<<<<<<< .mine
+        catch (Exception  e)
+=======
+        catch (Exception e)
+>>>>>>> .r636
+        {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+/*    public static void main(String args[])
+    {
+        String passwd = null;
+        String loginpasswd = null;
+<<<<<<< .mine
+        //passwd = "admin";
+        loginpasswd = Md5("2苏A8888L22018-07-04 15:30:002018-08-04 15:30:0020180711b20887292a374637b4a9d6e9f940b1e6");
+=======
+        passwd = "2苏A8888L22018-07-04 15:30:002018-08-04 15:30:0020180711b20887292a374637b4a9d6e9f940b1e6";
+		loginpasswd = Md5(passwd);
+//		4fa22c1b9bbbf6cc0816ed0f6b657b50
+>>>>>>> .r636
+        System.out.println("MD5 16Bit : " + loginpasswd);
+    }*/
+}

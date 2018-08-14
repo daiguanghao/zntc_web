@@ -1,0 +1,54 @@
+package com.eqy.quartz;
+
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.eqy.utils.MD5;
+import com.eqy.web.pojo.UserBookingBean;
+import com.eqy.web.service.IPackService;
+
+/**
+ * 
+ * @author daiguanghao
+ * 
+ */
+public class ZntcJob {
+	private static Logger logger = Logger.getLogger(ZntcJob.class);
+	
+	@Autowired
+	private IPackService packService;
+
+	/**
+	 * 智能匹配预约成功的车辆和车位信息
+	 */
+	public void invoke1() {
+		//1.遍历t_booking_log表，找出审核通过的（状态2，3）
+		
+		List<UserBookingBean> userBooking = packService.selectUserBookingListByStatus();
+		if(userBooking.size() == 0){
+//			System.out.println("------00----------");
+		}else{
+//			System.out.println("--------22------");
+			for(UserBookingBean list : userBooking){
+	    		/*System.out.println(list.getId());
+	    		System.out.println(list.getPackId());
+	    		System.out.println(list.getPackCarType());
+	    		System.out.println(list.getUserOpenid());
+	    		System.out.println(list.getPaymentStaus());*/
+	    		int res = packService.matchCarForBooking(list.getId(),list.getPackId(),list.getPackCarType(),list.getUserOpenid(),list.getPaymentStaus());
+//	    		System.out.println(res);
+	    	}
+		}
+	}
+	
+	public void invoke2(){
+		String passwd = null;
+        String loginpasswd = null;
+        //passwd = "admin";
+        MD5 md5 = new MD5();
+        loginpasswd = md5.Md5("2苏A8888L22018-07-04 15:30:002018-08-04 15:30:0020180711b20887292a374637b4a9d6e9f940b1e6");
+        System.out.println("MD5 16Bit : " + loginpasswd);
+	}
+}

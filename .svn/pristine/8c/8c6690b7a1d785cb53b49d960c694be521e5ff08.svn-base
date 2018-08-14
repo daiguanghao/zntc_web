@@ -1,0 +1,128 @@
+.choose_t{
+	background-color: #fff;
+	border-radius:10px 10px 0px 0px ;
+	padding: 15px;
+	margin-top: -20px;
+	position: relative;
+	z-index: 10;
+	display: flex;
+}
+.choose_t_lf{
+	width: 80%;
+	border-right: 1px solid #ddd;
+}
+.choose_t_lf_1{
+	width: 95%;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 10px;
+}
+.choose_t_lf_1_1{
+	width: 100%;
+	font-weight: bold;
+	color: #4A4A4A;
+	
+}
+.choose_t_lf_1_1 img{
+	width: 8px;
+	vertical-align: middle;
+	margin-top: -3px;
+	margin-right: 4px;
+}
+.choose_t_lf_1_2{
+	color: #888;
+	font-size: 12px;
+	margin-left: 15px;
+	white-space:nowrap; 
+	overflow:hidden; 
+	text-overflow:ellipsis;
+}
+.choose_t_lf_2{
+	width: 90%;
+	margin-top: 13px;
+	height: 20px;
+}
+.choose_t_lf_2 img{
+	width: 17px;
+	vertical-align: top;
+	margin-right: 3px;
+	margin-top: 2px;
+}
+.choose_t_lf_2_txt{
+	display: inline-block;
+	width: calc(100% - 25px);
+	font-size: 12px;
+	white-space:nowrap; 
+	overflow:hidden; 
+	text-overflow:ellipsis;
+	line-height: 20px;
+	height: 20px;
+}
+.choose_t_lf_2_txt span{
+	color: #FF9F00;
+}
+.choose_t_rg{
+	width: 20%;
+	margin-top: 18px;
+}
+.choose_t_rg_1{
+	width: 100%;
+	text-align: center;
+	height: 20px;
+	font-size: 16px;
+}
+.choose_t_rg_2{
+	width: 100%;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+	font-size: 20px;
+	font-weight: bold;
+}
+.choose_p{
+	line-height: 40px;
+	height: 40px;
+	padding: 0px 15px;
+	color: #4A4A4A;
+}
+.choose_p img{
+	margin-right: 5px;
+	vertical-align: middle;
+	margin-top: -3px;
+	width: 10px;
+}
+.choose_j{
+	width: 100%;
+	padding: 0px 15px;
+	position: relative;
+	margin-bottom: 15px;
+}
+.choose_j_img{
+	width: 100%;
+	
+}
+.choose_j_img img{
+	width: 100%;
+	vertical-align: top;
+}
+.choose_j_txt{
+	position: absolute;
+	line-height: 26px;
+	height: 26px;
+	top: calc(50% - 13px);
+	left: 9%;
+	font-size: 15px;
+}
+.choose_j_txt span{
+	color: #FF9F00;
+}
+.choose_j_txt2{
+	position: absolute;
+	line-height: 26px;
+	height: 26px;
+	top: calc(50% - 13px);
+	left: 9%;
+	font-size: 15px;
+}
+.choose_j_txt2 span{
+	color: #4C72FB;
+}

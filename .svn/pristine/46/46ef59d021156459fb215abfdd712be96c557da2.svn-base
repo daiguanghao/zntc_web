@@ -1,0 +1,13 @@
+package com.eqy.web.service;
+
+import java.util.List;
+
+import com.eqy.web.pojo.PackBean;
+import com.eqy.web.pojo.UserInfoBean;
+
+
+public interface IPackService {
+	List<PackBean> selectAllPackList();
+	PackBean selectDetailPackById(String id);
+	List<UserInfoBean> selectUserCarList(String openid);
+}

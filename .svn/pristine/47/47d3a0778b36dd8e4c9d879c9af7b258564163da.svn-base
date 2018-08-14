@@ -1,0 +1,189 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>车位详情</title>
+		<link rel="stylesheet" href="<%=basePath%>css/mui.min.css"  />
+		<link rel="stylesheet" href="<%=basePath%>css/public.css" />
+		<link rel="stylesheet" href="<%=basePath%>css/mypoint.css" />
+		<script type="text/javascript" src="<%=basePath%>js/mui.min.js" ></script>
+	</head>
+	<body>
+		<div class="mypoint_all">
+		<c:forEach items="${bookingList}" var="coll" varStatus="status">
+			<div class="mypoint_li">
+				<div class="mypoint_li_top">
+					<div class="mypoint_li_top_c">
+						<div class="mypoint_li_top_c_1">
+							<img src="<%=basePath%>img/index/ic_alarm_on.png"/>我的预约
+						</div>
+						<div class="mypoint_li_top_c_2">
+						
+						<%-- ${fn:substring(coll.bookingTime, 5, 16)}~${fn:substring(coll.bookingEndTime, 5, 16)} --%>
+							
+							${fn:replace(fn:replace(fn:substring(coll.bookingTime, 5, 16), 
+                                '-', '月'), 
+                                ' ', '日')}~${fn:replace(fn:replace(fn:substring(coll.bookingEndTime, 5, 16), 
+                                '-', '月'), 
+                                ' ', '日')}
+						</div>
+					</div>
+					
+					 <c:if test="${coll.bookingStatus==0}">
+					 <div class="mypoint_li_top_stat bg_g">
+						已取消
+					</div>
+					</c:if>
+					<c:if test="${coll.bookingStatus==1}">
+					 <div class="mypoint_li_top_stat bg_y">
+						预约审核中
+					</div>
+					</c:if>
+					<c:if test="${coll.bookingStatus==2}">
+					 <div class="mypoint_li_top_stat bg_y">
+						审核通过
+					</div>
+					</c:if>
+					<c:if test="${coll.bookingStatus==3}">
+					 <div class="mypoint_li_top_stat bg_y">
+						预约成功
+					</div>
+					</c:if> 
+					
+				</div>
+				<div class="mypoint_li_C">
+					<div class="mypoint_li_C_li">
+						<div class="mypoint_li_C_li_1 bg_b">
+							
+						</div>
+						<div class="mypoint_li_C_li_2">
+							车牌号码
+						</div>
+						<div class="mypoint_li_C_li_3">
+							${coll.userCarNum}
+						</div>
+					</div>
+					<div class="mypoint_li_C_li">
+						<div class="mypoint_li_C_li_1 bg_l">
+							
+						</div>
+						<div class="mypoint_li_C_li_2">
+							联系人
+						</div>
+						<div class="mypoint_li_C_li_3">
+							${coll.userName}
+						</div>
+					</div>
+					<div class="mypoint_li_C_li ">
+						<div class="mypoint_li_C_li_1 bg_r">
+							
+						</div>
+						<div class="mypoint_li_C_li_2">
+							联系电话
+						</div>
+						<div class="mypoint_li_C_li_3">
+							${coll.userPhoneNum}
+						</div>
+					</div>
+					<div class="mypoint_li_C_li">
+						<div class="mypoint_li_C_li_1 bg_y">
+							
+						</div>
+						<div class="mypoint_li_C_li_2">
+							位置
+						</div>
+						<div class="mypoint_li_C_li_3">
+							${coll.packBean.packAddress}
+						</div>
+					</div>
+				</div>
+				
+				 <c:if test="${coll.bookingStatus==1}">
+					 <div class="mypoint_li_btn bg_b">
+					取消预约
+					</div>
+				</c:if>
+				<c:if test="${coll.bookingStatus==2}">
+					 <div class="mypoint_li_btn bg_b">
+					去支付
+					</div>
+				</c:if> 
+				
+				
+			</div>
+		</c:forEach>
+			<!-- 
+			<div class="mypoint_li">
+				<div class="mypoint_li_top">
+					<div class="mypoint_li_top_c">
+						<div class="mypoint_li_top_c_1">
+							<img src="<%=basePath%>img/index/ic_alarm_on.png"/>我的预约
+						</div>
+						<div class="mypoint_li_top_c_2">
+							6月30日 10:30~6月30日 15:00
+						</div>
+					</div>
+					<div class="mypoint_li_top_stat bg_g">
+						已取消
+					</div>
+				</div>
+				<div class="mypoint_li_C">
+					<div class="mypoint_li_C_li">
+						<div class="mypoint_li_C_li_1 bg_b">
+							
+						</div>
+						<div class="mypoint_li_C_li_2">
+							车牌号码
+						</div>
+						<div class="mypoint_li_C_li_3">
+							苏A B596K
+						</div>
+					</div>
+					<div class="mypoint_li_C_li">
+						<div class="mypoint_li_C_li_1 bg_l">
+							
+						</div>
+						<div class="mypoint_li_C_li_2">
+							联系人
+						</div>
+						<div class="mypoint_li_C_li_3">
+							朱逸民
+						</div>
+					</div>
+					<div class="mypoint_li_C_li ">
+						<div class="mypoint_li_C_li_1 bg_r">
+							
+						</div>
+						<div class="mypoint_li_C_li_2">
+							联系电话
+						</div>
+						<div class="mypoint_li_C_li_3">
+							18918918999
+						</div>
+					</div>
+					<div class="mypoint_li_C_li">
+						<div class="mypoint_li_C_li_1 bg_y">
+							
+						</div>
+						<div class="mypoint_li_C_li_2">
+							位置
+						</div>
+						<div class="mypoint_li_C_li_3">
+							南京市浦口区江北新区产业技术研创园孵鹰大厦A座09区206
+						</div>
+					</div>
+				</div>
+			</div>
+			 -->
+		</div>
+	</body>
+</html>

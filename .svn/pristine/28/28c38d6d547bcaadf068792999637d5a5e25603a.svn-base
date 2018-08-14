@@ -1,0 +1,19 @@
+package com.eqy.quartz;
+
+import org.apache.log4j.Logger;
+
+/**
+ * 
+ * @author daiguanghao
+ * 
+ */
+public class ZntcJob {
+	private static Logger logger = Logger.getLogger(ZntcJob.class);
+
+	/**
+	 * 智能匹配预约成功的车辆和车位信息
+	 */
+	public void invoke1() {
+		System.out.println("ZntcJob.invoke1");
+	}
+}

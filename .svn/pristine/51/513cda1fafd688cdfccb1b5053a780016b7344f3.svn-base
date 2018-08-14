@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eqy.web.dao.UserInfoMapper">
+	<resultMap id="UserInfoResultMap" type="com.eqy.web.pojo.UserInfoBean">
+		<id column="id" property="id"  />
+		<result column="user_openid" property="openId" />
+		<result column="user_carnum" property="carnum"  />
+		<result column="user_dl_pic1" property="dlPic1"  />
+		<result column="user_dl_pic2" property="dlPic2"  />
+		<result column="user_card_num" property="cardNum" />
+		<result column="user_phone_num" property="userPhoneNum" />
+		
+	</resultMap>
+	
+	<sql id="UserInfo_Column_List">
+		T.id, T.user_openid, T.user_carnum, T.user_dl_pic1,T.user_dl_pic2,
+		T.user_card_num,T.user_phone_num
+	</sql>
+	
+	
+	<select id="selectAllUserInfoList" resultMap="UserInfoResultMap" parameterType="String">
+		SELECT
+		<include refid="UserInfo_Column_List" />  FROM t_user_info T  WHERE user_openid =  #{openid}
+	</select>
+	
+	<insert id="insertUserInfo" parameterType="com.eqy.web.pojo.UserInfoBean">
+	insert into t_user_info (user_openid,
+		user_carnum,
+		user_dl_pic1, user_dl_pic2,user_card_num,user_phone_num
+		)
+		values (#{openId,jdbcType=VARCHAR},
+		#{carnum,jdbcType=VARCHAR},
+		#{dlPic1,jdbcType=VARCHAR}, 
+		#{dlPic2,jdbcType=VARCHAR},
+		#{cardNum,jdbcType=VARCHAR},
+		#{userPhoneNum,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	
+
+</mapper>

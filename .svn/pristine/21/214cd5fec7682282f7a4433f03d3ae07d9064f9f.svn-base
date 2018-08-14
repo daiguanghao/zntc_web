@@ -1,0 +1,134 @@
+package com.eqy.web.controller;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.math.MathContext;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import sun.misc.BASE64Decoder;
+
+import com.eqy.utils.DateTimeUtil;
+import com.eqy.utils.MD5;
+import com.eqy.web.pojo.UserBookingBean;
+import com.eqy.web.service.IPackService;
+
+/**
+ * @classname:UserCOntroller
+ * @Description: TODO(用户相关信息)
+ * @author Administrator
+ * @date: 2018-6-29 下午14:36:12
+ *
+ */
+@Controller
+@RequestMapping("/user")
+public class UserController {
+	
+	@Autowired
+	protected IPackService packService;
+	
+	/**
+	 * 我的预约查看
+	 * @return
+	 */
+	@RequestMapping("/mypoint")
+	public String myPoint(HttpServletRequest request,HttpServletResponse response ,Model model){
+		Map<String,Object> map = new HashMap<String,Object>();
+		String openid = (String)request.getSession().getAttribute("OPENID");
+		if(openid == null){
+			return "error";
+		}
+		
+		List<UserBookingBean> userBookingList = packService.selectUserBookingList(openid);
+//		System.out.println(userBookingList.size());
+		model.addAttribute("bookingList",userBookingList);
+		
+//		System.out.println(userBookingList);
+		
+		return "mypoint";
+		
+	}
+	
+	/**
+	 * 跳转到添加车辆信息界面
+	 * @return
+	 */
+	@RequestMapping("/addcar")
+	public String insertCarInfo(){
+		return "addcar";
+	}
+	
+	/**
+	 * 添加车辆信息
+	 * @param request
+	 * @param response
+	 * @param model
+	 */
+	@RequestMapping("/uploadcar")
+	public void uploadCar(HttpServletRequest request,HttpServletResponse response ,Model model){
+		
+		System.out.println("123sda");
+		
+		String carnum = request.getParameter("carnum");
+		String dl_pic1 = request.getParameter("file1");
+		String dl_pic2 = request.getParameter("file2");
+		
+		System.out.println(carnum);
+		System.out.println(dl_pic1);
+		
+		/*String pic1 = saveImg(dl_pic1, "D:\\upload\\");
+		System.out.println(pic1);*/
+	}
+	
+	/**
+	 * 保存图片方法
+	 * @param str base64字符串
+	 * @param path 图片保存路径
+	 * @return
+	 */
+	public String saveImg(String str,String path){
+		System.out.println(str);
+		
+		
+		
+		String imgFilePath = null;
+		/*BASE64Decoder decoder = new BASE64Decoder();
+		try {
+			byte[] b = decoder.decodeBuffer(str);
+			for(int i=0;i<b.length;++i)  
+            {  
+                if(b[i]<0)
+                {//调整异常数据  
+                    b[i]+=256;  
+                }  
+            } 
+			
+			//生成jpeg图片  
+			String date = DateTimeUtil.getTodayChar17();
+			int num = (int)(Math.random()*(100-10)+10);
+			String name = MD5.Md5(date+""+num);
+            imgFilePath = path+name+".png";//新生成的图片  
+            OutputStream out = new FileOutputStream(imgFilePath);      
+            out.write(b);  
+            out.flush();  
+            out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} */
+		
+		return imgFilePath;
+	}
+
+}

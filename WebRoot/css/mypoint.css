@@ -1,0 +1,95 @@
+.mypoint_li{
+	width: 94%;
+	margin-left: 3%;
+	border-radius: 10px;
+	box-shadow:0 0 15px #ccc ;
+	margin-top: 15px;
+	background-color: #fff;
+	padding: 15px;
+	margin-bottom: 20px;
+}
+.mypoint_li_top{
+	position: relative;
+	border-bottom: 1px solid #ddd;
+	padding-bottom:10px ;
+}
+.mypoint_li_top_c{
+	width: 100%;
+	
+}
+.mypoint_li_top_c_1{
+	width: 69%;
+	color: #989898;
+}
+.mypoint_li_top_c_1 img{
+	width: 18px;
+	vertical-align: middle;
+	margin-top: -3px;
+	margin-right: 5px;
+}
+.mypoint_li_top_c_2{
+	width: 70%;
+	padding-left: 23px;
+}
+.mypoint_li_top_stat{
+	position: absolute;
+	/*width: 80px;*/
+	height: 34px;
+	line-height: 34px;
+	color: #fff;
+	padding: 0px 15px;
+	border-radius: 17px 0px 0px 17px ;
+	right: -15px;
+	top: calc(50% - 22px);
+}
+.bg_y{
+	background-color: #FF9F00;
+}
+.bg_g{
+	background-color: #D8D8D8;
+}
+.mypoint_li_C{
+	width: 100%;
+}
+.mypoint_li_C_li{
+	display: flex;
+	line-height: 25px;
+	margin-top: 5px;
+	-webkit-flex-direction: row; /* Safari */  
+	flex-direction:row;  /*row-reverse column column-reverse  */
+	flex-wrap:wrap;  /*nowrap(默认值) | wrap | wrap-reverse*/
+}
+.mypoint_li_C_li_1{
+	width: 6px;
+	height: 6px;
+	border-radius: 3px;
+	margin-top: 10px;
+	margin-right: 12px;
+}
+.mypoint_li_C_li_2{
+	width: 70px;
+}
+.mypoint_li_C_li_3{
+	color: #989898;
+	width: calc(100% - 88px);
+}
+.bg_b{
+	background-color: #4C72FB;
+}
+.bg_l{
+	background-color: #50E3C2;
+}
+.bg_r{
+	background-color: #FF0000;
+}
+.mypoint_li_btn{
+	color: #fff;
+	margin-top: 5px;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 7px;
+}
+.mypoint_li_btn:active{
+	background-color: #2863EC;
+}

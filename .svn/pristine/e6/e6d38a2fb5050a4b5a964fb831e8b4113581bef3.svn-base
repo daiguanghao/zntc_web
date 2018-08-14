@@ -1,0 +1,69 @@
+.addcar_all{
+	width: 100%;
+}
+.addcar_t{
+	width: 100%;
+	color: #4A4A4A;
+	padding: 15px;
+}
+.addcar_t span{
+	color: red;
+}
+.addcar_num{
+	display: flex;
+}
+.addcar_num_1{
+	margin-left: 15px;
+	line-height: 30px;
+}
+.addcar_num_1 span{
+	color: red;
+	margin-right: 5px;
+}
+.addcar_num_2{
+	border-bottom: 1px solid #ddd;
+	line-height: 30px;
+	height: 30px;
+}
+.addcar_num_2 input{
+	padding: 0;
+	margin: 0;
+	outline: none;
+	border-radius: 0;
+	border: none; 
+	background-color: #F5F5F5;
+	line-height: 18px;
+	font-family: "微软雅黑";
+	font-size: 14px;
+	height: 18px;
+}
+.addcar_img{
+	background-color: #fff;
+	width: calc(100% - 30px);
+	margin-left: 15px;
+	margin-bottom: 20px;
+	border-radius: 10px;
+}
+.addcar_img img{
+	width: 100%;
+	vertical-align: top;
+}
+.addcar_ts{
+	color: #4A4A4A;
+	width: 100%;
+	text-align: center;
+}
+.addcar_btn{
+	background-color: #4C72FB;
+	width: calc(100% - 30px);
+	margin-left: 15px;
+	margin-top: 15px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	color: #fff;
+	border-radius: 5px;
+}
+.addcar_btn:active{
+	background-color: #2863EC;
+}

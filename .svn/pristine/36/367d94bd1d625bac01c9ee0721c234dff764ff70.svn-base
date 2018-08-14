@@ -1,0 +1,79 @@
+package com.eqy.web.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.eqy.web.dao.PackBeanMapper;
+import com.eqy.web.dao.UserBookingBeanMapper;
+import com.eqy.web.dao.UserInfoMapper;
+import com.eqy.web.pojo.PackBean;
+import com.eqy.web.pojo.UserBookingBean;
+import com.eqy.web.pojo.UserInfoBean;
+import com.eqy.web.service.IPackService;
+
+/**
+ * 
+ * @author daiguanghao
+ *
+ */
+
+@Service("userService")
+public class PackServiceImpl implements IPackService {
+
+	@Autowired
+    protected PackBeanMapper packBeanMapper;
+	@Autowired
+    protected UserInfoMapper userInfoMapper;
+	@Autowired
+    protected UserBookingBeanMapper userBookingBeanMapper;
+	@Override
+	public List<PackBean> selectAllPackList() {
+		// TODO Auto-generated method stub
+		return packBeanMapper.selectAllPackList();
+	}
+	@Override
+	public PackBean selectDetailPackById(String id) {
+		// TODO Auto-generated method stub
+		return packBeanMapper.selectDetailPackById(id);
+	}
+	@Override
+	public List<UserInfoBean> selectUserCarList(String openid) {
+		// TODO Auto-generated method stub
+		return userInfoMapper.selectAllUserInfoList(openid);
+	}
+	@Override
+	public List<UserBookingBean> selectUserBookingList(String openid) {
+		// TODO Auto-generated method stub
+		return userBookingBeanMapper.selectUserBookingList(openid);
+	}
+	@Override
+	public List<UserBookingBean> selectUserBookingList(String openid,String carnum) {
+		// TODO Auto-generated method stub
+		return userBookingBeanMapper.selectUserCarnumBookingList(openid,carnum);
+	}
+	@Transactional
+	@Override
+	public int insertUserBooking(UserBookingBean userBookingBean) {
+		// TODO Auto-generated method stub
+		return userBookingBeanMapper.insertUserBooking(userBookingBean);
+	}
+	@Override
+	public int insertUserInfo(UserInfoBean userInfoBean) {
+		// TODO Auto-generated method stub
+		return userInfoMapper.insertUserInfo(userInfoBean);
+	}
+	@Override
+	public int updateUserBooking(String openid, String id) {
+		// TODO Auto-generated method stub
+		return userBookingBeanMapper.updateUserBookingStatus(openid, id);
+	}
+	@Override
+	public int updateUserBookinDelete(String openid, String id) {
+		// TODO Auto-generated method stub
+		return userBookingBeanMapper.updateUserBookingDelete(openid, id);
+	}
+
+}

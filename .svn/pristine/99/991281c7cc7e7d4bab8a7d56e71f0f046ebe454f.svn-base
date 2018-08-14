@@ -1,0 +1,62 @@
+package com.eqy.web.pojo;
+import java.io.Serializable;
+
+/**
+ * @ClassName: ChannelBean
+ * @Description: 渠道信息表 T_CCS_CHANNEL
+ * @author luoyb
+ * @date 2017-8-2 下午5:03:28
+ * 
+ */
+public class ChannelBean implements Serializable
+{
+    /**
+     * 序列化
+     */
+    private static final long serialVersionUID = -6527667688887571782L;
+    private String tChannelId;// 渠道编号ID
+    private String tChannelName;// 渠道名称
+    private String tChannelType;// 渠道类别（1：内部；2：外部）
+    private String tCreateTime;// 渠道创建时间
+    private String tRemark;// 渠道备注
+    public String gettChannelId()
+    {
+        return tChannelId;
+    }
+    public void settChannelId(String tChannelId)
+    {
+        this.tChannelId = tChannelId == null ? null : tChannelId.trim();
+    }
+    public String gettChannelName()
+    {
+        return tChannelName;
+    }
+    public void settChannelName(String tChannelName)
+    {
+        this.tChannelName = tChannelName == null ? null : tChannelName.trim();
+    }
+    public String gettChannelType()
+    {
+        return tChannelType;
+    }
+    public void settChannelType(String tChannelType)
+    {
+        this.tChannelType = tChannelType == null ? null : tChannelType.trim();
+    }
+    public String gettCreateTime()
+    {
+        return tCreateTime;
+    }
+    public void settCreateTime(String tCreateTime)
+    {
+        this.tCreateTime = tCreateTime == null ? null : tCreateTime.trim();
+    }
+    public String gettRemark()
+    {
+        return tRemark;
+    }
+    public void settRemark(String tRemark)
+    {
+        this.tRemark = tRemark == null ? null : tRemark.trim();
+    }
+}

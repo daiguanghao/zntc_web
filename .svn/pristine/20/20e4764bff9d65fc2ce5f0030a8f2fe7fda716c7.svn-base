@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eqy.web.dao.PackBeanMapper">
+	<resultMap id="BaseResultMap" type="com.eqy.web.pojo.PackBean">
+		<id column="id" property="id"  />
+		<result column="pack_name" property="packName" />
+		<result column="pack_des" property="packDes"  />
+		<result column="pack_address" property="packAddress"  />
+		<result column="pack_total_num" property="totalNum"  />
+		<result column="pack_mactotal_num" property="macTotalNum" />
+		<result column="pack_mactotal_usenum" property="macTotalUseNum" />
+		<result column="pack_gratotal_num" property="graTotalNum" />
+		<result column="pack_gratotal_usenum" property="graTotalUseNum" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		T.id, T.pack_name, T.pack_des, T.pack_des,T.pack_address,
+		T.pack_total_num,T.pack_mactotal_num,T.pack_mactotal_usenum,
+		T.pack_gratotal_num,T.pack_gratotal_usenum
+	</sql>
+	
+	<select id="selectAllPackList" resultMap="BaseResultMap" parameterType="map">
+		SELECT
+		<include refid="Base_Column_List" />  FROM t_pack_info T
+	</select>
+	<select id="selectDetailPackById" resultMap="BaseResultMap" parameterType="String">
+		SELECT
+		<include refid="Base_Column_List" />  FROM t_pack_info T WHERE id =  #{id}
+	</select>
+	<!-- 机械车位使用量增加 -->
+	<update id="updateMactotalUsenum" parameterType="com.eqy.web.pojo.PackBean">
+	UPDATE t_pack_info SET pack_mactotal_usenum = pack_mactotal_usenum + 1 WHERE id = #{id};
+	</update>
+	<!-- 普通车位使用量增加 -->
+	<update id="updateGratotalUsenum" parameterType="com.eqy.web.pojo.PackBean">
+	UPDATE t_pack_info SET pack_gratotal_usenum = pack_gratotal_usenum + 1 WHERE id = #{id};
+	</update>
+</mapper>

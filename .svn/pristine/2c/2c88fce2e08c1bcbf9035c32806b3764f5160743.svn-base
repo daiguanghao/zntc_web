@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+	<!-- 定义日志文件 输入位置 -->
+	<property name="eqy" value="d:/webhome/cc_web" />
+	<!-- 日志最大的历史30天 -->
+	<property name="maxHistory" value="30" />
+	<!-- ConsoleAppender控制台输出日志 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- 对日志进行格式化 -->
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} [eqy] %-5level %logger -%msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern> ${eqy}/system/%d{yyyyMMdd}/error.log
+			</FileNamePattern>
+			<MaxHistory>${maxHistory}</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern> %d{yyyy-MM-dd HH:mm:ss} [eqy] %-5level %logger -%msg%n
+			</Pattern>
+		</layout>
+	</appender>
+	<appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern> ${eqy}/system/%d{yyyyMMdd}/info.log
+			</FileNamePattern>
+			<MaxHistory>${maxHistory}</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern> %d{yyyy-MM-dd HH:mm:ss} [eqy] %-5level %logger -%msg%n
+			</Pattern>
+		</layout>
+	</appender>
+	<appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern> ${eqy}/system/%d{yyyyMMdd}/debug.log
+			</FileNamePattern>
+			<MaxHistory>${maxHistory}</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern> %d{yyyy-MM-dd HH:mm:ss} [eqy] %-5level %logger -%msg%n
+			</Pattern>
+		</layout>
+	</appender>
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern> ${eqy}/system/%d{yyyyMMdd}/file/eqy.log.%d{yyyyMMdd}
+			</FileNamePattern>
+			<MaxHistory>${maxHistory}</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern> %d{yyyy-MM-dd HH:mm:ss} [eqy] %-5level %logger -%msg%n
+			</Pattern>
+		</layout>
+	</appender>
+	<logger name="com.eqy" level="INFO" additivity="false">
+		<appender-ref ref="FILE" />
+	</logger>
+	<logger name="java.sql.PreparedStatement" level="DEBUG" />
+	<logger name="java.sql.Connection" level="DEBUG" />
+	<logger name="java.sql.Statement" v="DEBUG" />
+	<logger name="com.ibatis" level="DEBUG" />
+	<logger name="com.ibatis.common.jdbc.SimpleDataSource" level="DEBUG" />
+	<logger name="com.ibatis.common.jdbc.ScriptRunner" level="DEBUG" />
+	<logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate" level="DEBUG" />
+	<root level="DEBUG">
+		<!-- 控制台输出 -->
+		<appender-ref ref="STDOUT" />
+		<!-- 文件输出 -->
+		<appender-ref ref="ERROR" />
+		<appender-ref ref="INFO" />
+		<appender-ref ref="DEBUG" />
+	</root>
+</configuration>

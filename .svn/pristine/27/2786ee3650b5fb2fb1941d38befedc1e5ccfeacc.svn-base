@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eqy.web.dao.UserBookingBeanMapper">
+<resultMap id="UserBookingResultMap" type="com.eqy.web.pojo.UserBookingBean">
+		<id column="id" property="id"  />
+		<result column="user_openid" property="userOpenid" />
+		<result column="user_carnum" property="userCarNum"  />
+		<result column="user_name" property="userName"  />
+		<result column="user_phonenum" property="userPhoneNum"  />
+		<result column="booking_time" property="bookingTime" />
+		<result column="bookingend_time" property="bookingEndTime" />
+		<result column="opt_time" property="optTime" />
+		<result column="booking_status" property="bookingStatus"  />
+		<result column="payment_status" property="paymentStaus"  />
+		<result column="payment_time" property="paymentTime" />
+		<result column="money" property="money" />
+		<result column="is_delete" property="isDelete" />
+		<association property="packBean" javaType="com.eqy.web.pojo.PackBean">
+			<result column="pack_address" property="packAddress"  />
+		</association>
+	</resultMap>
+	
+	<sql id="UserBooking_Column_List">
+		T.id, T.user_openid, T.user_carnum, T.user_name,T.user_phonenum,
+		T.booking_time,T.bookingend_time,T.opt_time,t.booking_status,T.payment_status,T.payment_time,T.money
+	</sql>
+	
+	
+	<select id="selectUserBookingList" resultMap="UserBookingResultMap" parameterType="String">
+		SELECT
+		<include refid="UserBooking_Column_List" />,P.pack_address
+		  FROM t_booking_logs T left join t_pack_info P on P.id = T.pack_id  WHERE t.user_openid =  #{openid} and t.is_delete = 0 
+		   ORDER BY T.id DESC;
+	</select>
+	
+	<select id="selectUserCarnumBookingList" resultMap="UserBookingResultMap" parameterType="String">
+		SELECT
+		<include refid="UserBooking_Column_List" />  FROM t_booking_logs T  WHERE user_openid =  #{0} and user_carnum = #{1}
+	</select>
+	
+	
+	<insert id="insertUserBooking" parameterType="com.eqy.web.pojo.UserBookingBean">
+		insert into t_booking_logs (user_openid,
+		user_carnum,
+		user_name, user_phonenum,
+		booking_time,bookingend_time,
+		opt_time,pack_id
+		)
+		values (#{userOpenid,jdbcType=VARCHAR},
+		#{userCarNum,jdbcType=VARCHAR},
+		#{userName,jdbcType=VARCHAR}, 
+		#{userPhoneNum,jdbcType=VARCHAR},
+		#{bookingTime,jdbcType=VARCHAR},
+		#{bookingEndTime,jdbcType=VARCHAR},
+		#{optTime,jdbcType=VARCHAR}, 
+		#{packId,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<update id="updateUserBookingStatus" parameterType="com.eqy.web.pojo.UserBookingBean">
+	UPDATE t_booking_logs SET booking_status = 0 WHERE user_openid = #{0} AND id = #{1};
+	</update>
+	
+	<update id="updateUserBookingDelete" parameterType="com.eqy.web.pojo.UserBookingBean">
+	UPDATE t_booking_logs SET is_delete = 1 WHERE user_openid = #{0} AND id = #{1};
+	</update>
+	
+</mapper>

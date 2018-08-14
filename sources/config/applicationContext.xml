@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<description>Spring Configuration</description>
+
+	<!--加载配置文件 -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:properties/*.properties</value>
+			</list>
+		</property>
+		<property name="propertiesPersister">
+			<bean class="com.eqy.tools.MyPropertiesPersist" />
+		</property>
+	</bean>
+	<!--开启对注解的支持 -->
+	<context:annotation-config />
+	<!--扫描Service -->
+	<context:component-scan base-package="com.eqy.web.*">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+    <!-- bonecp数据源 -->
+	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- 设置每个分区数 -->
+		<property name="partitionCount" value="${jdbc.partitionCount}" />
+		<!-- 设置每个分区含有connection最大个数 -->
+		<property name="maxConnectionsPerPartition" value="${jdbc.maxConnectionsPerPartition}" />
+		<!-- 设置每个分区含有connection最小个数 -->
+		<property name="minConnectionsPerPartition" value="${jdbc.minConnectionsPerPartition}" />
+		<!-- 设置分区中的connection增长数量 -->
+		<property name="acquireIncrement" value="${jdbc.acquireIncrement}" />
+		<!-- 设置连接池阀值 -->
+		<property name="poolAvailabilityThreshold" value="${jdbc.poolAvailabilityThreshold}"></property>
+		<!-- 设置获取connection超时的时间 -->
+		<property name="connectionTimeoutInMs" value="${jdbc.connectionTimeout}"></property>
+		<!-- 连接池中未使用的链接最大存活时间 -->
+		<property name="idleMaxAgeInMinutes" value="${jdbc.idleMaxAge}" />
+		<!-- 检查数据库连接池中空闲连接的间隔时间 -->
+		<property name="idleConnectionTestPeriodInMinutes" value="${jdbc.idleConnectionTestPeriod}" />
+		<!-- 语句缓存个数，默认是0 -->
+		<property name="statementsCacheSize" value="${jdbc.statementsCacheSize}" />
+	</bean>
+
+	<!-- mybatis文件配置，扫描所有mapper文件 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+		p:dataSource-ref="dataSource" p:configLocation="classpath:mybaits/mybatis-config.xml"
+		p:mapperLocations="classpath:mybaits/mapper/*.xml" />
+
+	<!-- spring与mybatis整合配置，扫描所有dao -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.eqy.web.dao"
+		p:sqlSessionFactoryBeanName="sqlSessionFactory" />
+
+	<!-- 对dataSource 数据源进行事务管理 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		p:dataSource-ref="dataSource" />
+
+	<!-- 事务管理 通知 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- 对insert,update,delete 开头的方法进行事务管理,只要有异常就回滚 -->
+			<tx:method name="insert*" propagation="REQUIRED" rollback-for="java.lang.Throwable" />
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="java.lang.Throwable" />
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="java.lang.Throwable" />
+			<tx:method name="remove*" propagation="REQUIRED" rollback-for="java.lang.Throwable" />
+			<!-- select,count开头的方法,开启只读,提高数据库访问性能 -->
+			<tx:method name="select*" read-only="true" />
+			<tx:method name="count*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<!-- 对其他方法 使用默认的事务管理 -->
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 事务aop配置 -->
+	<aop:config>
+		<aop:pointcut id="serviceMethods" expression="execution(* com.eqy.web.service.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods" />
+	</aop:config>
+
+	<!-- 配置使Spring采用CGLIB代理 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!-- 启用对事务注解的支持 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+</beans>

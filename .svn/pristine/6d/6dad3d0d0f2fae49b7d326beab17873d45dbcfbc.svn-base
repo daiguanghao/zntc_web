@@ -1,0 +1,74 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>车位详情</title>
+<link rel="stylesheet" href="css/mui.min.css" />
+<link rel="stylesheet" href="css/public.css" />
+<link rel="stylesheet" href="css/index.css" />
+<script type="text/javascript" src="js/mui.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+		function toDetailPack(id){
+        	window.location.href="<%=basePath%>pack/detail?id="+id;
+        }
+</script>
+</head>
+<body>
+	<div class="index_all">
+		<div class="public_top">
+			<div class="public_top_img">
+				<img src="img/index/Bitmap.png" />
+			</div>
+			<div class="public_top_yy">
+				<img src="img/index/icon_zz.png" /> 我的预约
+			</div>
+		</div>
+		<div class="index_t">
+			<img src="img/index/CombinedShape.png" /> 车位预约
+		</div>
+		<div class="index_list">
+			<c:forEach items="${packlist}" var="coll">
+				<div class="index_li">
+					<div class="index_li_lf">
+						<div class="index_li_lf_1">${coll.packName}</div>
+						<div class="index_li_lf_2">
+							<img src="img/index/Group3C.png" />
+							<div class="index_li_lf_2_txt">
+								<span>${coll.packDes}</span>
+							</div>
+						</div>
+					</div>
+					<div class="index_li_md">
+						<div class="index_li_md_1">可预约</div>
+						<div class="index_li_md_2">${coll.totalNum-coll.graTotalUseNum-coll.macTotalUseNum}</div>
+					</div>
+					<c:if test="${coll.totalNum-coll.graTotalUseNum-coll.macTotalUseNum eq 0 }">
+					<div class="index_li_rg ky_no">
+						<div class="index_li_rg_1">立即</div>
+						<div class="index_li_rg_2">预约</div>
+					</div>
+					</c:if>
+					<c:if test="${coll.totalNum-coll.macTotalUseNum-coll.graTotalUseNum ne 0 }">
+					<div class="index_li_rg ky_yes" onclick="toDetailPack(${coll.id})">
+						<div class="index_li_rg_1">立即</div>
+						<div class="index_li_rg_2">预约</div>
+					</div>
+					</c:if>
+				</div>
+			</c:forEach>
+		</div>
+	</div>
+</body>
+</html>

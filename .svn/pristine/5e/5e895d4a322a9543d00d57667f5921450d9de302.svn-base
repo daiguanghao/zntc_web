@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=WebRoot/WEB-INF/js/appointmsg.js,WebRoot/WEB-INF/view/js/appointmsg.js,WebRoot/WEB-INF/js/mui.picker.min.js,WebRoot/js/mui.min.js,WebRoot/js/appointmsg.js,WebRoot/WEB-INF/view/js/mui.picker.min.js,WebRoot/js/mui.picker.min.js,WebRoot/WEB-INF/js/mui.min.js,WebRoot/WEB-INF/view/js/mui.min.js
+validator.Unchecked=

@@ -1,0 +1,109 @@
+package com.eqy.quartz;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.alibaba.fastjson.JSONObject;
+import com.eqy.constants.SystemConstants;
+import com.eqy.utils.DateTimeUtil;
+import com.eqy.utils.HttpSendUtils;
+import com.eqy.utils.MD5;
+import com.eqy.web.pojo.UserBookingBean;
+import com.eqy.web.service.IPackService;
+
+/**
+ * 
+ * @author daiguanghao
+ * 
+ */
+public class ZntcJob {
+	private static Logger logger = Logger.getLogger(ZntcJob.class);
+	
+	@Autowired
+	private IPackService packService;
+	
+	/**
+	 * 智能匹配预约成功的车辆和车位信息
+	 */
+	public void invoke1() {
+		//1.遍历t_booking_log表，找出审核通过的（状态2，3）
+		List<UserBookingBean> userBooking = packService.selectUserBookingListByStatus();
+		if(userBooking.size() == 0){
+//			System.out.println("------00----------");
+		}else{
+//			System.out.println("--------22------");
+			for(UserBookingBean list : userBooking){
+	    		//开始调用匹配车位方法
+	    		int res = packService.matchCarForBooking(list.getId(),list.getPackId(),list.getPackCarType(),list.getUserOpenid(),list.getPaymentStaus());
+	    		
+	    		if(res == 1){
+	    			logger.error("预约ID"+list.getId()+"预约成功");
+	    		}else if(res == 2){
+	    			logger.error("预约ID"+list.getId()+"缺少车位导致预约失败");
+	    		}else{
+	    			logger.error("预约ID"+list.getId()+"预约失败");
+	    		}
+	    	}
+		}
+	}
+	
+	/**
+	 * 提交预约车辆车牌号以便闸机辨别
+	 * @throws UnsupportedEncodingException 
+	 */
+	public void invoke2() throws UnsupportedEncodingException{
+		String url = SystemConstants.BOOKING_URL;
+		String param;
+		String appId = SystemConstants.APPID;
+		String key = SystemConstants.KEY;
+		int carType = 2;
+		String parkId,md5Key,plateNo,ValidFrom,ValidTo;
+		String date = DateTimeUtil.getTodayChar8();
+		//查找所有预约完成的车辆
+		List<UserBookingBean> userBooking = packService.selectUserBookingForApi();
+		System.out.println(userBooking);
+		if(userBooking.size() == 0){
+			logger.info(date+"无车牌号提交-------------------");
+			System.out.println("无车牌号提交");
+			
+		}else{
+		for(UserBookingBean ubb : userBooking){
+			int id = ubb.getId();
+			parkId = ubb.getPackId();
+			plateNo = ubb.getUserCarNum();
+			ValidFrom = ubb.getBookingTime()+":00";
+			ValidTo = ubb.getBookingEndTime()+":00";
+			
+			md5Key = MD5.Md5(parkId+plateNo+carType+ValidFrom+ValidTo+date+key);
+			
+			param = "appId="+appId+"&key="+md5Key+"&parkId="+parkId+"&plateNo="+plateNo+"&carType="+carType
+					+"&ValidFrom="+ValidFrom+"&ValidTo="+ValidTo;
+
+			//调用第三方接口,将预约信息传过去供闸机识别
+			String res = HttpSendUtils.sendPost(url, param);
+			
+//			System.out.println(res);
+			
+			JSONObject json = JSONObject.parseObject(res);
+			
+//			System.out.println(json.get("resCode")+"----"+json.get("resMsg"));
+			if(json.get("resCode").toString().equals("0")){ //success
+				if(packService.updateUserBookingIsPost(id) == 1){
+					logger.info(parkId+"---------------"+res+"状态更新成功");
+				}else{
+					logger.info(parkId+"---------------"+res+"状态更新失败");
+				}
+				
+			}else{//fail
+				logger.info(parkId+"---------------"+res);
+			}
+			
+		}
+
+		}
+	}
+}

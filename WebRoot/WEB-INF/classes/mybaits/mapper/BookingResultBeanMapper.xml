@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eqy.web.dao.BookingResultBeanMapper">
+	<resultMap id="BookingResultMap" type="com.eqy.web.pojo.BookingResultBean">
+		<id column="id" property="id"  />
+		<result column="openid" property="openid"/>
+		<result column="booking_log_id" property="bookingLogId" />
+		<result column="pack_id" property="packId"  />
+		<result column="pack_car_id" property="packCarId"  />
+		<result column="is_pay" property="isPay" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		T.id, T.booking_log_id, T.pack_id, T.pack_car_id,T.is_pay
+	</sql>
+	
+	<select id="selectBookingResultList" resultMap="BookingResultMap" parameterType="String">
+	select 
+	<include refid="Base_Column_List" /> from t_booking_result T 
+	where T.openid = #{0} and T.booking_log_id = #{1};
+	</select>
+	
+	<update id="updatePayMent" parameterType="com.eqy.web.pojo.BookingResultBean">
+	update t_booking_result set is_pay = 1 where openid = #{0} and booking_log_id = #{1};
+	</update>
+	
+	<insert id="insertBookingResultList" parameterType="com.eqy.web.pojo.BookingResultBean">
+	insert into t_booking_result(openid,booking_log_id,pack_id,pack_car_id,is_pay)
+	values(
+	#{openid,jdbcType=VARCHAR},
+	#{bookingLogId,jdbcType=VARCHAR},
+	#{packId,jdbcType=VARCHAR},
+	#{packCarId,jdbcType=VARCHAR},
+	#{isPay,jdbcType=VARCHAR}
+	)
+	</insert>
+	
+</mapper>

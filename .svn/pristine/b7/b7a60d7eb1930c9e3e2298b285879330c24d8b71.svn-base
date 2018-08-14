@@ -1,0 +1,33 @@
+package com.eqy.web.dao;
+
+import java.util.List;
+
+import com.eqy.web.pojo.UserBookingBean;
+
+
+/**
+ * 
+ * @author daiguanghao
+ *
+ */
+public interface UserBookingBeanMapper {
+	/**
+	 * 
+	 * @param openid
+	 * @return
+	 */
+	public List<UserBookingBean> selectUserBookingList(String openid);
+	
+	/**
+	 * 
+	 * @param openid
+	 * @return
+	 */
+	public List<UserBookingBean> selectUserCarnumBookingList(String openid,String carnum);
+	/**
+	 * 车位预约
+	 * @param userBookingBean
+	 * @return
+	 */
+	public int insertUserBooking(UserBookingBean userBookingBean);
+}

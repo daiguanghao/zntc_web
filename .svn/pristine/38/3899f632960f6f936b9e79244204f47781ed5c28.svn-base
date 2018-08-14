@@ -1,0 +1,30 @@
+package com.eqy.web.service;
+
+import java.util.List;
+
+import com.eqy.web.pojo.PackBean;
+import com.eqy.web.pojo.UserBookingBean;
+import com.eqy.web.pojo.UserInfoBean;
+
+/**
+ * 
+ * @author daiguanghao
+ *
+ */
+public interface IPackService {
+	List<PackBean> selectAllPackList();
+	PackBean selectDetailPackById(String id);
+	List<UserInfoBean> selectUserCarList(String openid);
+	List<UserBookingBean> selectUserBookingList(String openid);
+	List<UserBookingBean> selectUserBookingList(String openid,String carnum,String date);
+	List<UserBookingBean> selectUserBookingListBytime(String openid,String date);
+	List<UserBookingBean> selectUserBookingListByStatus();
+	int insertUserBooking(UserBookingBean userBookingBean);
+	int insertUserInfo(UserInfoBean userInfoBean);
+	int updateUserBooking(String openid,int id);
+	int updateUserBookinDelete(String openid,int id);
+	int updateUserBookingPay(String openid,String id,String money);
+	int matchCarForBooking(int packBookingId,String id,String packCarType,String openid,String isPay);
+	List<UserBookingBean> selectUserBookingForApi();
+	int updateUserBookingIsPost(int id);
+}

@@ -1,0 +1,43 @@
+package com.eqy.web.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.eqy.web.dao.PackBeanMapper;
+import com.eqy.web.dao.UserInfoMapper;
+import com.eqy.web.pojo.PackBean;
+import com.eqy.web.pojo.UserInfoBean;
+import com.eqy.web.service.IPackService;
+
+/**
+ * 
+ * @author Administrator
+ *
+ */
+
+@Service("userService")
+public class PackServiceImpl implements IPackService {
+
+	@Autowired
+    protected PackBeanMapper packBeanMapper;
+	@Autowired
+    protected UserInfoMapper userInfoMapper;
+	@Override
+	public List<PackBean> selectAllPackList() {
+		// TODO Auto-generated method stub
+		return packBeanMapper.selectAllPackList();
+	}
+	@Override
+	public PackBean selectDetailPackById(String id) {
+		// TODO Auto-generated method stub
+		return packBeanMapper.selectDetailPackById(id);
+	}
+	@Override
+	public List<UserInfoBean> selectUserCarList(String openid) {
+		// TODO Auto-generated method stub
+		return userInfoMapper.selectAllUserInfoList(openid);
+	}
+
+}

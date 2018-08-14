@@ -1,0 +1,9 @@
+package com.eqy.constants;
+
+public class SystemConstants {
+
+	public static final String WEB_SUCCESS = "0";
+
+	public static final String WEB_FAILURE = "1";
+
+}

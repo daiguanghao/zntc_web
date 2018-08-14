@@ -1,0 +1,421 @@
+package com.eqy.web.pojo;
+
+import java.io.Serializable;
+
+/**
+ * @ClassName: ParentCardBean
+ * @Description: 父券信息表 T_CCS_INFORMATION_PARENT
+ * @author luoyb
+ * @date 2017-8-2 下午3:57:10
+ * 
+ */
+public class ParentCardBean implements Serializable {
+	/**
+	 * 序列化
+	 */
+	private static final long serialVersionUID = 7568553739517680407L;
+	private String fParentCardNumber;// 父券编码
+	private String fParentCardName;// 父券名称
+	private String fReceiveBeginTime;// 领取开始时间
+	private String fReceiveEndTime;// 领取结束时间
+	private String fReceiveCount;// 可领总量
+	private String fReceiveTimes;// 单个用户可领次数
+	private String fReceiveCity;// 可领地市(99:全省;11:苏州;12:淮安:13:宿迁;14:南京;15:连云港;16:徐州;17:常州;18:镇江;19:无锡;20:南通;21:泰州;22:盐城;23:扬州;)
+	private String fReceiveBrands;// 可领品牌(QQT:全球通;SZX:神州行;DGDD:动感地带;ALL:全部)
+	private String fReceiveVisibleChannel;// 领券中心领取可见渠道(obsh_activity:网厅;jsmcc:掌厅客户端;wap_activity:掌厅WAP;school_activity:掌厅校园版;none:均不可见)
+	private String fReceiveCondition;// 其他方式领取(1:充值;2:套内流量;3:积分;4:E币;5:业务(套餐升档);6:活动)
+	private String fReceiveGrade;// 选择充值表示充值档次;选择积分表示积分扣减数量;选择E币表示E币扣减数量;选择套内流量表示套内流量扣减数量
+	private String fReceiveWay;// 支付方式(1:快捷支付;2:微信支付;3:支付宝;4:中国银联;5:中国建设银行;6:手机支付;7:易充值)
+	private String fCardStatus;// 卡券状态(01:已保存待提交;02:已提交待审核;03:已审核待测试;04:已测试待发布;05:已发布;06:审核未通过;07:待撤回:08:申请发布:09定时发布)
+	private String fChildCount;// 子券个数
+	private String fIsSolidify;// 是否固化(0:不固化;1:固化)通用券使用
+	private String fBossId;// 精确营销目标库
+	private String fIsWhiteList;// 是否存在白名单(0:不存在;1:存在)
+	private String fIsBlackList;// 是否存在黑名单(0:不存在;1:存在)
+	private String fCreatePeople;// 卡券创建人
+	private String fCreateJobNumber;// 卡券创建工号
+	private String fCreateTime;// 卡券创建时间
+	private String fOwnCity;// 卡券所属地市
+	private String fCardKind;// 卡券类型(1:通用券;2:合作券;3:店铺券;4:购机券;5:理财券;6:活动券)
+	private String fCheckFailReason;// 审核不通过原因
+	private String fReleaseTime;// 发布时间(定时发布状态下为定时发布时间)
+	private String fTargetUserNum;// 目标客户数(用于大数据)
+	private String fWithdrawReason;// 申请撤回原因
+	private String fReceiveChannel;// 领取渠道(obsh:网厅;wap:掌厅;sms短厅;jsmcc:客户端;activity:营销活动模版化)
+	private String tBatchSendCard;// 批量发券（1：启用 2：不启用）
+	private String tChannelId;// 父券归属渠道ID
+	private String channelName;// 父券归属渠道名称
+	private String fBlackWhiteCode;// 黑白名单目标库编码
+	private String wechatTitle;// 分享标题
+	private String wechatContent;// 分享内容
+	private String obshGetUrl;
+	private String wapGetUrl;
+	private String jsmccGetUrl;
+	/*-----------------------父券备份表T_CCS_INFORMATION_PARENT_BACKS使用-----------------------*/
+	private String fSynchroStatus;// 卡券同步状态（0：未处理 1：已通过 2未通过，3待审核）
+	private String fBacksSource;// 卡券备份来源（1：掌中店备份 2：经分同步备份 3：通用券原数据备份）
+	private String fUpdateWay;// 卡券修改方式（1：在线修改 2：下线修改）
+	private String fModifyCheckFailReason;// 审核修改通用券不通过理由
+	private String fApplyModifyTime;// IT申请修改时间
+	private String fParentBackId;// 父券备份主键
+	public String getfBlackWhiteCode() {
+		return fBlackWhiteCode;
+	}
+
+	public void setfBlackWhiteCode(String fBlackWhiteCode) {
+		this.fBlackWhiteCode = fBlackWhiteCode;
+	}
+	public String getfSynchroStatus() {
+		return fSynchroStatus;
+	}
+
+	public void setfSynchroStatus(String fSynchroStatus) {
+		this.fSynchroStatus = fSynchroStatus;
+	}
+
+	public String getfBacksSource() {
+		return fBacksSource;
+	}
+
+	public void setfBacksSource(String fBacksSource) {
+		this.fBacksSource = fBacksSource;
+	}
+
+	public String getfUpdateWay() {
+		return fUpdateWay;
+	}
+
+	public void setfUpdateWay(String fUpdateWay) {
+		this.fUpdateWay = fUpdateWay;
+	}
+
+	public String getfModifyCheckFailReason() {
+		return fModifyCheckFailReason;
+	}
+
+	public void setfModifyCheckFailReason(String fModifyCheckFailReason) {
+		this.fModifyCheckFailReason = fModifyCheckFailReason;
+	}
+
+	public String getfApplyModifyTime() {
+		return fApplyModifyTime;
+	}
+
+	public void setfApplyModifyTime(String fApplyModifyTime) {
+		this.fApplyModifyTime = fApplyModifyTime;
+	}
+
+	public String getfParentBackId() {
+		return fParentBackId;
+	}
+
+	public void setfParentBackId(String fParentBackId) {
+		this.fParentBackId = fParentBackId;
+	}
+
+	public String getfParentCardNumber() {
+		return fParentCardNumber;
+	}
+
+	public void setfParentCardNumber(String fParentCardNumber) {
+		this.fParentCardNumber = fParentCardNumber == null ? null
+				: fParentCardNumber.trim();
+	}
+
+	public String getfParentCardName() {
+		return fParentCardName;
+	}
+
+	public void setfParentCardName(String fParentCardName) {
+		this.fParentCardName = fParentCardName == null ? null : fParentCardName
+				.trim();
+	}
+
+	public String getfReceiveBeginTime() {
+		return fReceiveBeginTime;
+	}
+
+	public void setfReceiveBeginTime(String fReceiveBeginTime) {
+		this.fReceiveBeginTime = fReceiveBeginTime == null ? null
+				: fReceiveBeginTime.trim();
+	}
+
+	public String getfReceiveEndTime() {
+		return fReceiveEndTime;
+	}
+
+	public void setfReceiveEndTime(String fReceiveEndTime) {
+		this.fReceiveEndTime = fReceiveEndTime == null ? null : fReceiveEndTime
+				.trim();
+	}
+
+	public String getfReceiveCount() {
+		return fReceiveCount;
+	}
+
+	public void setfReceiveCount(String fReceiveCount) {
+		this.fReceiveCount = fReceiveCount == null ? null : fReceiveCount
+				.trim();
+	}
+
+	public String getfReceiveTimes() {
+		return fReceiveTimes;
+	}
+
+	public void setfReceiveTimes(String fReceiveTimes) {
+		this.fReceiveTimes = fReceiveTimes == null ? null : fReceiveTimes
+				.trim();
+	}
+
+	public String getfReceiveCity() {
+		return fReceiveCity;
+	}
+
+	public void setfReceiveCity(String fReceiveCity) {
+		this.fReceiveCity = fReceiveCity == null ? null : fReceiveCity.trim();
+	}
+
+	public String getfReceiveBrands() {
+		return fReceiveBrands;
+	}
+
+	public void setfReceiveBrands(String fReceiveBrands) {
+		this.fReceiveBrands = fReceiveBrands == null ? null : fReceiveBrands
+				.trim();
+	}
+
+	public String getfReceiveVisibleChannel() {
+		return fReceiveVisibleChannel;
+	}
+
+	public void setfReceiveVisibleChannel(String fReceiveVisibleChannel) {
+		this.fReceiveVisibleChannel = fReceiveVisibleChannel == null ? null
+				: fReceiveVisibleChannel.trim();
+	}
+
+	public String getfReceiveCondition() {
+		return fReceiveCondition;
+	}
+
+	public void setfReceiveCondition(String fReceiveCondition) {
+		this.fReceiveCondition = fReceiveCondition == null ? null
+				: fReceiveCondition.trim();
+	}
+
+	public String getfReceiveGrade() {
+		return fReceiveGrade;
+	}
+
+	public void setfReceiveGrade(String fReceiveGrade) {
+		this.fReceiveGrade = fReceiveGrade == null ? null : fReceiveGrade
+				.trim();
+	}
+
+	public String getfReceiveWay() {
+		return fReceiveWay;
+	}
+
+	public void setfReceiveWay(String fReceiveWay) {
+		this.fReceiveWay = fReceiveWay == null ? null : fReceiveWay.trim();
+	}
+
+	public String getfCardStatus() {
+		return fCardStatus;
+	}
+
+	public void setfCardStatus(String fCardStatus) {
+		this.fCardStatus = fCardStatus == null ? null : fCardStatus.trim();
+	}
+
+	public String getfChildCount() {
+		return fChildCount;
+	}
+
+	public void setfChildCount(String fChildCount) {
+		this.fChildCount = fChildCount == null ? null : fChildCount.trim();
+	}
+
+	public String getfIsSolidify() {
+		return fIsSolidify;
+	}
+
+	public void setfIsSolidify(String fIsSolidify) {
+		this.fIsSolidify = fIsSolidify == null ? null : fIsSolidify.trim();
+	}
+
+	public String getfBossId() {
+		return fBossId;
+	}
+
+	public void setfBossId(String fBossId) {
+		this.fBossId = fBossId == null ? null : fBossId.trim();
+	}
+
+	public String getfIsWhiteList() {
+		return fIsWhiteList;
+	}
+
+	public void setfIsWhiteList(String fIsWhiteList) {
+		this.fIsWhiteList = fIsWhiteList == null ? null : fIsWhiteList.trim();
+	}
+
+	public String getfIsBlackList() {
+		return fIsBlackList;
+	}
+
+	public void setfIsBlackList(String fIsBlackList) {
+		this.fIsBlackList = fIsBlackList == null ? null : fIsBlackList.trim();
+	}
+
+	public String getfCreatePeople() {
+		return fCreatePeople;
+	}
+
+	public void setfCreatePeople(String fCreatePeople) {
+		this.fCreatePeople = fCreatePeople == null ? null : fCreatePeople
+				.trim();
+	}
+
+	public String getfCreateJobNumber() {
+		return fCreateJobNumber;
+	}
+
+	public void setfCreateJobNumber(String fCreateJobNumber) {
+		this.fCreateJobNumber = fCreateJobNumber == null ? null
+				: fCreateJobNumber.trim();
+	}
+
+	public String getfCreateTime() {
+		return fCreateTime;
+	}
+
+	public void setfCreateTime(String fCreateTime) {
+		this.fCreateTime = fCreateTime == null ? null : fCreateTime.trim();
+	}
+
+	public String getfOwnCity() {
+		return fOwnCity;
+	}
+
+	public void setfOwnCity(String fOwnCity) {
+		this.fOwnCity = fOwnCity == null ? null : fOwnCity.trim();
+	}
+
+	public String getfCardKind() {
+		return fCardKind;
+	}
+
+	public void setfCardKind(String fCardKind) {
+		this.fCardKind = fCardKind == null ? null : fCardKind.trim();
+	}
+
+	public String getfCheckFailReason() {
+		return fCheckFailReason;
+	}
+
+	public void setfCheckFailReason(String fCheckFailReason) {
+		this.fCheckFailReason = fCheckFailReason == null ? null
+				: fCheckFailReason.trim();
+	}
+
+	public String getfReleaseTime() {
+		return fReleaseTime;
+	}
+
+	public void setfReleaseTime(String fReleaseTime) {
+		this.fReleaseTime = fReleaseTime == null ? null : fReleaseTime.trim();
+	}
+
+	public String getfTargetUserNum() {
+		return fTargetUserNum;
+	}
+
+	public void setfTargetUserNum(String fTargetUserNum) {
+		this.fTargetUserNum = fTargetUserNum == null ? null : fTargetUserNum
+				.trim();
+	}
+
+	public String getfWithdrawReason() {
+		return fWithdrawReason;
+	}
+
+	public void setfWithdrawReason(String fWithdrawReason) {
+		this.fWithdrawReason = fWithdrawReason == null ? null : fWithdrawReason
+				.trim();
+	}
+
+	public String getfReceiveChannel() {
+		return fReceiveChannel;
+	}
+
+	public void setfReceiveChannel(String fReceiveChannel) {
+		this.fReceiveChannel = fReceiveChannel == null ? null : fReceiveChannel
+				.trim();
+	}
+
+	public String gettBatchSendCard() {
+		return tBatchSendCard;
+	}
+
+	public void settBatchSendCard(String tBatchSendCard) {
+		this.tBatchSendCard = tBatchSendCard == null ? null : tBatchSendCard
+				.trim();
+	}
+
+	public String gettChannelId() {
+		return tChannelId;
+	}
+
+	public void settChannelId(String tChannelId) {
+		this.tChannelId = tChannelId == null ? null : tChannelId.trim();
+	}
+
+	public String getChannelName() {
+		return channelName;
+	}
+
+	public void setChannelName(String channelName) {
+		this.channelName = channelName;
+	}
+
+	public String getWechatTitle() {
+		return wechatTitle;
+	}
+
+	public void setWechatTitle(String wechatTitle) {
+		this.wechatTitle = wechatTitle;
+	}
+
+	public String getWechatContent() {
+		return wechatContent;
+	}
+
+	public void setWechatContent(String wechatContent) {
+		this.wechatContent = wechatContent;
+	}
+
+	public String getObshGetUrl() {
+		return obshGetUrl;
+	}
+
+	public void setObshGetUrl(String obshGetUrl) {
+		this.obshGetUrl = obshGetUrl;
+	}
+
+	public String getWapGetUrl() {
+		return wapGetUrl;
+	}
+
+	public void setWapGetUrl(String wapGetUrl) {
+		this.wapGetUrl = wapGetUrl;
+	}
+
+	public String getJsmccGetUrl() {
+		return jsmccGetUrl;
+	}
+
+	public void setJsmccGetUrl(String jsmccGetUrl) {
+		this.jsmccGetUrl = jsmccGetUrl;
+	}
+
+}

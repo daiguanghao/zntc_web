@@ -1,0 +1,14 @@
+eclipse.preferences.version=1
+<<<<<<< .mine
+encoding//WebRoot/js/appointmsg.js=UTF-8
+encoding//WebRoot/js/jquery-1.11.1.min.js=UTF-8
+encoding//WebRoot/js/jquery-2.1.0.js=UTF-8
+encoding//WebRoot/js/mui.min.js=UTF-8
+encoding//WebRoot/js/mui.picker.min.js=UTF-8
+=======
+encoding//WebRoot/WEB-INF/view/bookingresult.jsp=UTF-8
+encoding//WebRoot/WEB-INF/view/mypoint.jsp=UTF-8
+>>>>>>> .r623
+encoding//WebRoot/welcome.jsp=UTF-8
+encoding/<project>=UTF-8
+encoding/src=UTF-8

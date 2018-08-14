@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+			http://www.springframework.org/schema/aop 
+			http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+			http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context-3.1.xsd
+			http://www.springframework.org/schema/jee 
+			http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+			http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+			http://www.springframework.org/schema/task
+			http://www.springframework.org/schema/task/spring-task-3.1.xsd">
+
+	<task:scheduler id="scheduler" pool-size="10" />
+	<task:executor id="executor" pool-size="10" />
+	<task:annotation-driven scheduler="scheduler" executor="executor" />
+
+	<!-- 要调用的工作类 -->
+	<bean id="zntcjob" class="com.eqy.quartz.ZntcJob"></bean>
+
+	<!-- 定义调用对象和调用对象的方法 -->
+	<bean id="jobtask1"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject">
+			<ref bean="zntcjob" />
+		</property>
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod">
+			<value>invoke1</value>
+		</property>
+	</bean>
+
+	
+
+	<!-- 智能停车车位匹配定时任务-->
+	<bean id="doTime1"
+		class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="jobtask1" />
+		</property>
+
+		<!-- cron表达式 -->
+		<property name="cronExpression">
+			<!-- 每间隔1分钟点执行 -->
+			<value>0 0/1 * * * ?</value>
+			<!-- <value>0/10 * * * * ?</value> -->
+		</property>
+	</bean>
+
+
+
+	<!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
+	<bean id="startQuertz" lazy-init="false" autowire="no"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<!-- 智能停车车位匹配定时任务-->
+				<ref bean="doTime1" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

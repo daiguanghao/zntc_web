@@ -1,0 +1,30 @@
+package com.eqy.web.service.user.impl;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.eqy.web.pojo.PermissionBean;
+import com.eqy.web.pojo.UserBean;
+import com.eqy.web.service.user.IUserService;
+
+
+@Service("userService")
+public class UserServiceImpl implements IUserService
+{
+
+	@Override
+	public UserBean selectUserByAccountNum(String fAccountNumber) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PermissionBean> selectPermListByAccount(String fAccountNumber) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+    
+
+}
